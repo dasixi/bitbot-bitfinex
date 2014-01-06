@@ -10,12 +10,13 @@ module BitBot
 
     #price, amount, timestamp
     def offers
-      resp = client.orderbook
+      map = { price: :original_price }
+      resp = client.orderbook 'btcusd', limit_bids: 10, limit_asks: 10
       asks = resp['asks'].collect do |offer|
-        Offer.new offer
+        Offer.new rekey(offer, map)
       end
       bids = resp['bids'].collect do |offer|
-        Offer.new offer
+        Offer.new rekey(offer, map)
       end
       {asks: asks, bids: bids}
     end
@@ -35,7 +36,8 @@ module BitBot
     def buy(options)
       amount = options[:amount]
       price = options[:price]
-      resp = client.order amount, price, 'exchange limit'
+      order_type = options[:order_type] || 'exchange limit'
+      resp = client.order amount, price, order_type
       build_order(resp)
     end
 
@@ -45,12 +47,19 @@ module BitBot
     def sell(options)
       amount = options[:amount]
       price = options[:price]
-      resp = client.order (-amount), price, 'exchange limit'
+      order_type = options[:order_type] || 'exchange limit'
+      resp = client.order (-amount), price, order_type
       build_order(resp)
     end
 
     def cancel(order_id)
-      client.cancel order_id
+      order = build_order client.cancel(order_id)
+      order.status == 'cancelled'
+    end
+
+    def sync(order_id)
+      hash = client.status order_id
+      build_order(hash)
     end
 
     ### ACCOUNT ###
@@ -64,6 +73,7 @@ module BitBot
     def build_order(hash)
       map = { symbol: nil,
               exchange: nil,
+              price: :original_price,
               avg_execution_price: :avg_price,
               type: nil,
               side: :type,
@@ -72,8 +82,7 @@ module BitBot
               was_forced: nil,
               original_amount: :amount,
               remaining_amount: :remaining,
-              executed_amount: nil,
-              order_id: nil
+              executed_amount: nil
       }
       order = Order.new rekey(hash, map)
       order.type = case order.type
