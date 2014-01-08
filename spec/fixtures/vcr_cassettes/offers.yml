@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.bitfinex.com/v1/book/btcusd?limit_asks=10&limit_bids=10
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 08 Jan 2014 02:52:10 GMT
+      Server:
+      - Apache/2.2.15 (CentOS)
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"5d95930d7e6bcdac4f2e7f9d87c46da5"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 2cf4b8485c743ff29044985d77e891ba
+      X-Runtime:
+      - '0.187846'
+      X-Rack-Cache:
+      - miss
+      X-Powered-By:
+      - Phusion Passenger 4.0.29
+      X-Frame-Options:
+      - DENY
+      Status:
+      - 200 OK
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"bids":[{"price":"811.03","amount":"1.0","timestamp":"1389149516.0"},{"price":"809.0","amount":"9.88616948","timestamp":"1389149507.0"},{"price":"809.0","amount":"3.0","timestamp":"1389149523.0"},{"price":"808.1","amount":"3.0","timestamp":"1389149518.0"},{"price":"808.01","amount":"5.0","timestamp":"1389149413.0"},{"price":"808.0","amount":"1.6304849","timestamp":"1389146747.0"},{"price":"806.01","amount":"5.0","timestamp":"1389149455.0"},{"price":"806.0","amount":"0.1","timestamp":"1389146639.0"},{"price":"803.03","amount":"1.0","timestamp":"1389149511.0"},{"price":"803.0","amount":"15.0","timestamp":"1389147427.0"}],"asks":[{"price":"819.993","amount":"0.20269","timestamp":"1389149517.0"},{"price":"819.993","amount":"0.19731","timestamp":"1389149517.0"},{"price":"819.994","amount":"1.35","timestamp":"1389149486.0"},{"price":"819.994","amount":"1.43942736","timestamp":"1389149480.0"},{"price":"819.994","amount":"1.35","timestamp":"1389149470.0"},{"price":"819.994","amount":"0.78926481","timestamp":"1389149454.0"},{"price":"819.9951","amount":"1.0","timestamp":"1389149407.0"},{"price":"820.0","amount":"0.5","timestamp":"1389149342.0"},{"price":"821.11","amount":"10.0","timestamp":"1389149453.0"},{"price":"822.01","amount":"1.0","timestamp":"1389149307.0"}]}'
+    http_version: 
+  recorded_at: Wed, 08 Jan 2014 02:52:10 GMT
+recorded_with: VCR 2.8.0

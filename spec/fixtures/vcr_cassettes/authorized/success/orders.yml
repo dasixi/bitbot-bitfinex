@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bitfinex.com/v1/orders
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Bfx-Apikey:
+      - <KEY>
+      X-Bfx-Payload:
+      - eyJyZXF1ZXN0IjoiL3YxL29yZGVycyIsIm5vbmNlIjoiMTM4OTE2NjIwMSJ9
+      X-Bfx-Signature:
+      - <Signature>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 08 Jan 2014 07:30:03 GMT
+      Server:
+      - Apache/2.2.15 (CentOS)
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"260bfa4e102a71b46657647e85b60c80"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 2058591db12e6b93877609296b8204c7
+      X-Runtime:
+      - '0.016646'
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Powered-By:
+      - Phusion Passenger 4.0.29
+      Set-Cookie:
+      - _bitfinex_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTUyYmFhN2I3NmZlOTc1YTM2YzM0NWQ2ZGExYTU0NzE3BjsAVA%3D%3D--ad74fcc3b5ca990544873ee0325a41d4fda47de6;
+        path=/; secure; HttpOnly
+      X-Frame-Options:
+      - DENY
+      Status:
+      - 200 OK
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '[{"id":5265695,"symbol":"btcusd","exchange":null,"price":"123.0","avg_execution_price":"0.0","side":"buy","type":"exchange
+        limit","timestamp":"1389165420.0","is_live":true,"is_cancelled":false,"was_forced":false,"original_amount":"0.01","remaining_amount":"0.01","executed_amount":"0.0"},{"id":5265698,"symbol":"btcusd","exchange":null,"price":"234.0","avg_execution_price":"0.0","side":"buy","type":"exchange
+        limit","timestamp":"1389165422.0","is_live":true,"is_cancelled":false,"was_forced":false,"original_amount":"0.01","remaining_amount":"0.01","executed_amount":"0.0"},{"id":5265703,"symbol":"btcusd","exchange":null,"price":"1234.0","avg_execution_price":"0.0","side":"sell","type":"exchange
+        limit","timestamp":"1389165424.0","is_live":true,"is_cancelled":false,"was_forced":false,"original_amount":"0.01","remaining_amount":"0.01","executed_amount":"0.0"}]'
+    http_version: 
+  recorded_at: Wed, 08 Jan 2014 07:30:03 GMT
+recorded_with: VCR 2.8.0

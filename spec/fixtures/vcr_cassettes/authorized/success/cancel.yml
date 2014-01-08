@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bitfinex.com/v1/order/cancel
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Bfx-Apikey:
+      - <KEY>
+      X-Bfx-Payload:
+      - eyJyZXF1ZXN0IjoiL3YxL29yZGVyL25ldyIsIm5vbmNlIjoiMTM4OTE2Mzg1OSIsInN5bWJvbCI6ImJ0Y3VzZCIsImFtb3VudCI6IjAuMDEiLCJleGNoYW5nZSI6ImFsbCIsInNpZGUiOiJzZWxsIiwidHlwZSI6ImV4Y2hhbmdlIGxpbWl0IiwicHJpY2UiOiI3ODgifQ==
+      X-Bfx-Signature:
+      - <Signature>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 08 Jan 2014 07:00:04 GMT
+      Server:
+      - Apache/2.2.15 (CentOS)
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"51f74fa09f4d01908f67cf6a6bb9450f"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - ce623da399919a4911428f707f234954
+      X-Runtime:
+      - '0.020614'
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Powered-By:
+      - Phusion Passenger 4.0.27
+      Set-Cookie:
+      - _bitfinex_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJTFlZDc1NWYzOTM5MmE1OWE3MzRhYzc2Y2EwNjRlMWMzBjsAVA%3D%3D--fb7096d43924a5b0444d326f9a33e6e34efbcf79;
+        path=/; secure; HttpOnly
+      X-Frame-Options:
+      - DENY
+      Status:
+      - 200 OK
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"id":5263705,"symbol":"btcusd","exchange":null,"price":"1000.0","avg_execution_price":"0.0","side":"sell","type":"exchange
+        limit","timestamp":"1389164332.0","is_live":false,"is_cancelled":true,"was_forced":false,"original_amount":"0.01","remaining_amount":"0.01","executed_amount":"0.0"}'
+    http_version: 
+  recorded_at: Wed, 08 Jan 2014 07:00:04 GMT
+recorded_with: VCR 2.8.0

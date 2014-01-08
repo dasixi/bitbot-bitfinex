@@ -5,18 +5,22 @@ module BitBot
     ### INFO ###
     def ticker
       map = {last_price: :last, mid: nil}
-      Ticker.new rekey(client.ticker, map)
+      original = client.ticker
+
+      Ticker.new rekey(original, map).merge(original: original, agent: self)
     end
 
-    #price, amount, timestamp
     def offers
-      map = { price: :original_price }
       resp = client.orderbook 'btcusd', limit_bids: 10, limit_asks: 10
+      check_response(resp)
+
       asks = resp['asks'].collect do |offer|
-        Offer.new rekey(offer, map)
+        offer['timestamp'] = offer['timestamp'].to_f
+        Offer.new offer.merge(original: offer, agent: self)
       end
       bids = resp['bids'].collect do |offer|
-        Offer.new rekey(offer, map)
+        offer['timestamp'] = offer['timestamp'].to_f
+        Offer.new offer.merge(original: offer, agent: self)
       end
       {asks: asks, bids: bids}
     end
@@ -29,54 +33,90 @@ module BitBot
       offers[:bids]
     end
 
-    ### TRADES ###
-    #{"id"=>4880202, "symbol"=>"btcusd", "exchange"=>nil, "price"=>"1.0", "avg_execution_price"=>"0.0", "side"=>"buy",
-    #"type"=>"exchange limit", "timestamp"=>"1388473334.231488559", "is_live"=>true, "is_cancelled"=>false, "was_forced"=>false,
-    #"original_amount"=>"0.1", "remaining_amount"=>"0.1", "executed_amount"=>"0.0", "order_id"=>4880202}
+
+    ### PRIVATE ###
     def buy(options)
+      raise UnauthorizedError unless client.have_key?
       amount = options[:amount]
       price = options[:price]
-      order_type = options[:order_type] || 'exchange limit'
+      order_type = options[:type] || 'exchange limit'
       resp = client.order amount, price, order_type
+      check_response(resp)
+
       build_order(resp)
     end
 
-    #{"id"=>4880203, "symbol"=>"btcusd", "exchange"=>nil, "price"=>"10000.0", "avg_execution_price"=>"0.0", "side"=>"sell",
-    #"type"=>"exchange limit", "timestamp"=>"1388473337.204447101", "is_live"=>true, "is_cancelled"=>false, "was_forced"=>false,
-    #"original_amount"=>"0.1", "remaining_amount"=>"0.1", "executed_amount"=>"0.0", "order_id"=>4880203}
     def sell(options)
+      raise UnauthorizedError unless client.have_key?
       amount = options[:amount]
       price = options[:price]
-      order_type = options[:order_type] || 'exchange limit'
+      order_type = options[:type] || 'exchange limit'
       resp = client.order (-amount), price, order_type
+      check_response(resp)
+
       build_order(resp)
     end
 
     def cancel(order_id)
-      order = build_order client.cancel(order_id)
+      raise UnauthorizedError unless client.have_key?
+      resp = client.cancel(order_id)
+      check_response(resp)
+
+      order = build_order resp
       order.status == 'cancelled'
     end
 
     def sync(order_id)
-      hash = client.status order_id
-      build_order(hash)
+      raise UnauthorizedError unless client.have_key?
+      resp = client.status order_id
+      check_response(resp)
+
+      build_order resp
     end
 
-    ### ACCOUNT ###
     def orders
-      client.orders.collect do |hash|
+      raise UnauthorizedError unless client.have_key?
+      resp = client.orders
+      check_response(resp)
+
+      resp.collect do |hash|
         build_order(hash)
       end
     end
 
+    ### HELPER METHODS ###
+    def currency
+      'USD'
+    end
+
+    def rate
+      Settings.rate
+    end
+
     private
+    def check_response(response)
+      return if response.is_a?(Array)
+      if error_msg = response['message']
+        case error_msg
+        when 'Could not find a key matching the given X-BFX-APIKEY.'
+          raise UnauthorizedError, error_msg
+        when 'No such order found.'
+          raise OrderNotFoundError, error_msg
+        when 'Order could not be cancelled.'
+          raise Error, error_msg
+        when 'Invalid order: not enough balance'
+          raise BalanceError, error_msg
+        else
+          raise Error, error_msg
+        end
+      end
+    end
+
     def build_order(hash)
       map = { symbol: nil,
+              id: :order_id,
               exchange: nil,
-              price: :original_price,
               avg_execution_price: :avg_price,
-              type: nil,
-              side: :type,
               is_live: nil,
               is_cancelled: nil,
               was_forced: nil,
@@ -84,12 +124,7 @@ module BitBot
               remaining_amount: :remaining,
               executed_amount: nil
       }
-      order = Order.new rekey(hash, map)
-      order.type = case order.type
-                   when 'buy' then 'bid'
-                   when 'sell' then 'ask'
-                   else raise "Unexcepted order type: #{order.type}"
-                   end
+      order = Order.new rekey(hash, map).merge(original: hash, agent: self)
       order.status = if hash['is_live']
                        'open'
                      elsif hash['is_cancelled']

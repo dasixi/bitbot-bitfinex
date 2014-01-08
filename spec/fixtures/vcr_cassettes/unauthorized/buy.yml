@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bitfinex.com/v1/order/new
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Bfx-Apikey:
+      - key
+      X-Bfx-Payload:
+      - eyJyZXF1ZXN0IjoiL3YxL29yZGVyL25ldyIsIm5vbmNlIjoiMTM4OTE1MjA0NSIsInN5bWJvbCI6ImJ0Y3VzZCIsImFtb3VudCI6IjAuMDEiLCJleGNoYW5nZSI6ImFsbCIsInNpZGUiOiJidXkiLCJ0eXBlIjoiZXhjaGFuZ2UgbGltaXQiLCJwcmljZSI6IjgzMyJ9
+      X-Bfx-Signature:
+      - bec7248a2cab5e4aed288089a5bef80d588ae34d6d9789a3e0962db54e47b4b6fe952b9099d2417f915b1e8ee6f47a0b
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Wed, 08 Jan 2014 03:34:08 GMT
+      Server:
+      - Apache/2.2.15 (CentOS)
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 1c82d53a9f1fe5f07732ae806ba5aeaf
+      X-Runtime:
+      - '0.011467'
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Powered-By:
+      - Phusion Passenger 4.0.29
+      Set-Cookie:
+      - _bitfinex_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJWZiYjdhYTBiNzM0OTNlMjMzNWJjMmZhNDc5N2U0MmVhBjsAVA%3D%3D--6474ef275cc0cad2e3f8826f69ec7bcff6de8149;
+        path=/; secure; HttpOnly
+      X-Frame-Options:
+      - DENY
+      Status:
+      - 400 Bad Request
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"message":"Could not find a key matching the given X-BFX-APIKEY."}'
+    http_version: 
+  recorded_at: Wed, 08 Jan 2014 03:34:16 GMT
+recorded_with: VCR 2.8.0
