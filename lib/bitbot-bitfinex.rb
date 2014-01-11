@@ -71,6 +71,7 @@ module BitBot
       resp = client.status order_id
       check_response(resp)
 
+      #TODO: bitfinex API return wrong side when order is executed, should re-check here!
       build_order resp
     end
 
@@ -91,6 +92,10 @@ module BitBot
 
     def rate
       Settings.rate
+    end
+
+    def client
+      @client ||= BitFinex.new @key, @secret
     end
 
     private
@@ -133,10 +138,6 @@ module BitBot
                        'closed'
                      end
       order
-    end
-
-    def client
-      @client ||= BitFinex.new @key, @secret
     end
   end
 end
