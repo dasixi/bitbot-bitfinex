@@ -69,5 +69,14 @@ describe BitBot::Bitfinex do
         expect(subject.last.price).to eq(1234.0)
       end
     end
+
+    describe "#account" do
+      subject { VCR.use_cassette('authorized/success/account'){ BitBot[:bitfinex].new.account } }
+
+      it 'fetched account balances' do
+        expect(subject.btc_balance.amount).to eq(1.02552311)
+        expect(subject.fiat_balance.amount).to eq(2.58218168)
+      end
+    end
   end
 end

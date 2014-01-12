@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.bitfinex.com/v1/balances
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      X-Bfx-Apikey:
+      - <KEY>
+      X-Bfx-Payload:
+      - eyJyZXF1ZXN0IjoiL3YxL2JhbGFuY2VzIiwibm9uY2UiOiIxMzg5NTM2OTcxIn0=
+      X-Bfx-Signature:
+      - <Signature>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 12 Jan 2014 14:29:34 GMT
+      Server:
+      - Apache/2.2.15 (CentOS)
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"a0f0a6162de4298f5d1a5e9958ca2db8"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 487a81fd8a69274074e28fdf1d24daca
+      X-Runtime:
+      - '0.109695'
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Powered-By:
+      - Phusion Passenger 4.0.29
+      Set-Cookie:
+      - "___utmvaaFuYXoc=pet\x01MvuP; path=/; Max-Age=900"
+      - '___utmvbaFuYXoc=vZd XGjOWalx: rtc; path=/; Max-Age=900'
+      - ___utmvmaFuYXoc=OypvkohqvMo; path=/; Max-Age=900
+      - _bitfinex_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRkkiJWNkZjAyNzFlNGE3NmI5MDhmYjRhZGExYWU5ZGY5MmYxBjsAVA%3D%3D--d9a1f0dc70ff7669e188946db1fb17eca21792af;
+        path=/; secure; HttpOnly
+      - incap_ses_143_116519=8xF9L5mwehoXOhDnCgr8Ac2m0lIAAAAAvwiNrieKsdaL6uJXC7P+5g==;
+        path=/; Domain=.bitfinex.com
+      - nlbi_116519=3wH2bkw/phn/jkql9xlekQAAAAB7URAguLYJxq80J2RUwhQX; path=/; Domain=.bitfinex.com
+      - visid_incap_116519=3ZZwTqBoQIaKsGbAUT1KJ82m0lIAAAAAQUIPAAAAAABU5vDb6uOZHNvrHjr18ldT;
+        expires=Tue, 12 Jan 2016 08:30:51 GMT; path=/; Domain=.bitfinex.com
+      X-Frame-Options:
+      - DENY
+      Status:
+      - 200 OK
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Iinfo:
+      - 10-92700095-92700244 NNNY CT(117 119 0) RT(1389536972592 552) q(0 0 2 -1)
+        r(2 5) U5
+      X-Cdn:
+      - Incapsula
+    body:
+      encoding: UTF-8
+      string: '[{"type":"deposit","currency":"btc","amount":"0.0","available":"0.0"},{"type":"deposit","currency":"usd","amount":"0.0","available":"0.0"},{"type":"exchange","currency":"btc","amount":"1.02552311","available":"1.00552311"},{"type":"exchange","currency":"ltc","amount":"0.9985","available":"0.9985"},{"type":"exchange","currency":"usd","amount":"2.58218168","available":"2.57218168"},{"type":"trading","currency":"btc","amount":"120.00688245","available":"120.00688245"},{"type":"trading","currency":"usd","amount":"0.00006525","available":"0.00006525"}]'
+    http_version: 
+  recorded_at: Sun, 12 Jan 2014 14:29:34 GMT
+recorded_with: VCR 2.8.0

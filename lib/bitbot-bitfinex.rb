@@ -85,6 +85,14 @@ module BitBot
       end
     end
 
+    def account
+      raise UnauthorizedError unless client.have_key?
+      resp = client.balances
+      check_response(resp)
+
+      build_account(resp)
+    end
+
     ### HELPER METHODS ###
     def currency
       'USD'
@@ -138,6 +146,17 @@ module BitBot
                        'closed'
                      end
       order
+    end
+
+    def build_account(arr)
+      account = Account.new agent: self
+
+      btc_balance = arr.detect{|bln| bln['currency'] == 'btc' && bln['type'] == 'exchange' }
+      usd_balance = arr.detect{|bln| bln['currency'] == 'usd' && bln['type'] == 'exchange' }
+
+      account.balances << Balance.new(currency: 'BTC', amount: btc_balance['amount'], agent: self)
+      account.balances << Balance.new(currency: 'USD', amount: usd_balance['amount'], agent: self)
+      account
     end
   end
 end
