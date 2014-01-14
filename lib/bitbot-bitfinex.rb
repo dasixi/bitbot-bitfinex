@@ -119,6 +119,8 @@ module BitBot
           raise Error, error_msg
         when 'Invalid order: not enough balance'
           raise BalanceError, error_msg
+        when 'Nonce is too small.'
+          raise NonceError, error_msg
         else
           raise Error, error_msg
         end
