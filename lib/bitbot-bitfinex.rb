@@ -66,8 +66,9 @@ module BitBot
       order.status == 'cancelled'
     end
 
-    def sync(order_id)
+    def sync(order)
       raise UnauthorizedError unless client.have_key?
+      order_id = order.is_a?(BitBot::Order) ? order.order_id : order.to_i
       resp = client.status order_id
       check_response(resp)
 

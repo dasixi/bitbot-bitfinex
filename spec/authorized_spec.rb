@@ -56,6 +56,18 @@ describe BitBot::Bitfinex do
       end
     end
 
+    describe "#sync with BitBot::Order" do
+      subject { VCR.use_cassette('authorized/success/sync_with_order_arg'){ BitBot[:bitfinex].new.sync Class.new(BitBot::Order){}.new(order_id: 5263705) } }
+
+      it 'updated an order status' do
+        expect(subject.side).to eq('sell')
+        expect(subject.price).to eq(1000.0)
+        expect(subject.amount).to eq(0.01)
+        expect(subject.remaining).to eq(0.01)
+        expect(subject.status).to eq('cancelled')
+      end
+    end
+
     describe "#orders" do
       subject { VCR.use_cassette('authorized/success/orders'){ BitBot[:bitfinex].new.orders } }
 
