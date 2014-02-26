@@ -117,7 +117,7 @@ module BitBot
         when 'No such order found.'
           raise OrderNotFoundError, error_msg
         when 'Order could not be cancelled.'
-          raise Error, error_msg
+          raise CanceledError, error_msg
         when 'Invalid order: not enough balance'
           raise BalanceError, error_msg
         when 'Nonce is too small.'
